@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Android tasks</string>
+    <string name="enter_employee_name">Enter Empployee Name</string>
 </resources>
