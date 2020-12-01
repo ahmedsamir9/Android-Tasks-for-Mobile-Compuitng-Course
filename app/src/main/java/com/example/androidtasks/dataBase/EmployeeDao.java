@@ -15,6 +15,6 @@ import java.util.List;
 public interface EmployeeDao {
 @Insert(onConflict = OnConflictStrategy.REPLACE)
     public long insertEmployee(Employee employee);
-@Query("select * from Employee Where employeeName =:name")
-    public List<Employee>getEmployees(String name);
+@Query("select employeeName from Employee where employeeName like '%' || :name || '%'")
+    public List<String>getEmployees(String name);
 }

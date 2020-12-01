@@ -1,5 +1,6 @@
 package com.example.androidtasks.model;
 
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Ignore;
@@ -9,9 +10,13 @@ import androidx.room.PrimaryKey;
 public class Employee {
     @PrimaryKey(autoGenerate = true)
     private int employeeId;
+    @ColumnInfo
     private String employeeName;
+    @ColumnInfo
     private String employeeTitle;
+    @ColumnInfo
     private String employeePhone;
+    @ColumnInfo
     private String employeeEmail;
     private int depId;
 

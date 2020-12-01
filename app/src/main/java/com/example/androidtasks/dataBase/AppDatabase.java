@@ -14,9 +14,13 @@ public abstract class AppDatabase extends RoomDatabase {
     private static AppDatabase appDatabase;
     public static AppDatabase getInstance(Context context){
         if (appDatabase == null){
-            appDatabase = Room.databaseBuilder(context,AppDatabase.class,"assignmentDb").allowMainThreadQueries().build();
+            appDatabase = Room.databaseBuilder(context.getApplicationContext(),AppDatabase.class,"assignmentDb")
+                    .allowMainThreadQueries()
+                    .fallbackToDestructiveMigration()
+                    .build();
         }
         return appDatabase;
     }
     public abstract EmployeeDao employeeDao();
+    public abstract DepartmentDao departmentDao();
 }
