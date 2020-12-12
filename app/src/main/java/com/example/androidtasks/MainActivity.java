@@ -3,9 +3,11 @@ package com.example.androidtasks;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
@@ -24,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     DepartmentDao departmentDao;
     AppDatabase appDatabase;
     ArrayAdapter adapter;
+    List<Employee>employees;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,12 +50,21 @@ public class MainActivity extends AppCompatActivity {
                adapter.notifyDataSetChanged();
                String name =binding.edName.getText().toString();
                Log.d("ahmed",name);
-               List<String>employees=appDatabase.employeeDao().getEmployees(name);
-               for (String employeeName :employees){
-                   adapter.add(employeeName);
+               employees=appDatabase.employeeDao().getEmployees(name);
+               for (Employee employeeName :employees){
+                   adapter.add(employeeName.getEmployeeName());
                }
            }
        });
+        binding.listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent =new Intent(MainActivity.this,DetailsActivity.class);
+
+                intent.putExtra("ID",employees.get(position).getEmployeeId());
+                startActivity(intent);
+            }
+        });
     }
     private void makeToast(String message){
         Toast.makeText(this,message,Toast.LENGTH_LONG).show();
